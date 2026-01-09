@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAIZYE THE DEVELOPER</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #121212 50%, #1a1a1a 100%);
+            color: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header dengan foto profil */
+        .profile-section {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 4px solid #00d9ff;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 217, 255, 0.5);
+        }
+
+        .title {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d9ff, #ff00cc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Menu Buttons */
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 850px) {
+            .menu-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-item {
+            background: rgba(25, 25, 35, 0.9);
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-item:hover {
+            background: rgba(35, 35, 45, 0.95);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(0, 217, 255, 0.3);
+        }
+
+        .menu-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: rgba(0, 217, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 22px;
+            font-size: 1.8rem;
+            color: #00d9ff;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover .menu-icon {
+            background: rgba(0, 217, 255, 0.2);
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .menu-content {
+            flex: 1;
+        }
+
+        .menu-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-title-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-desc {
+            font-size: 0.95rem;
+            color: #bbb;
+            line-height: 1.5;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .status-error {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
+        }
+
+        .status-active {
+            background: linear-gradient(135deg, #00b09b, #96c93d);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 176, 155, 0.3);
+        }
+
+        .status-vip {
+            background: linear-gradient(135deg, #ff8a00, #ffd000);
+            color: #111;
+            box-shadow: 0 4px 10px rgba(255, 138, 0, 0.3);
+        }
+
+        .status-vvip {
+            background: linear-gradient(135deg, #9d50bb, #6e48aa);
+            color: white;
+            box-shadow: 0 4px 10px rgba(157, 80, 187, 0.3);
+        }
+
+        .status-admin {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 114, 255, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #777;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .footer a {
+            color: #00d9ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #ff00cc;
+            text-decoration: underline;
+        }
+
+        /* Animasi untuk efek masuk */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-item {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .menu-item:nth-child(2) { animation-delay: 0.2s; }
+        .menu-item:nth-child(3) { animation-delay: 0.3s; }
+        .menu-item:nth-child(4) { animation-delay: 0.4s; }
+        .menu-item:nth-child(5) { animation-delay: 0.5s; }
+        .menu-item:nth-child(6) { animation-delay: 0.6s; }
+        .menu-item:nth-child(7) { animation-delay: 0.7s; }
+        .menu-item:nth-child(8) { animation-delay: 0.8s; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .profile-pic {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .menu-container {
+                gap: 18px;
+            }
+            
+            .menu-item {
+                padding: 18px;
+            }
+            
+            .menu-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                margin-right: 18px;
+                border-radius: 12px;
+            }
+            
+            .menu-title {
+                font-size: 1.2rem;
+            }
+            
+            .menu-desc {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header dengan foto profil -->
+        <div class="profile-section">
+            <img src="https://files.catbox.moe/4thhuv.jpg" alt="Profile Picture" class="profile-pic">
+            <h1 class="title">ALL INFO KAIZYE</h1>
+            <p class="subtitle">Akses saluran-saluran informasi dan kontak admin resmi untuk update terbaru dan layanan eksklusif.</p>
+        </div>
+
+        <!-- Menu Buttons -->
+        <div class="menu-container">
+            <!-- Saluran 1 -->
+            <div class="menu-item">
+                <div class="menu-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <div class="menu-title-text">
+                            <span>Saluran Pertama</span>
+                        </div>
+                        <span class="status status-error">ERROR</span>
+                    </div>
+                    <div class="menu-desc">Saluran informasi utama sedang mengalami gangguan teknis (KENON).</div>
+                </div>
+            </div>
+
+            <!-- Saluran 2 -->
+            <div class="menu-item">
+                <div class="menu-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <div class="menu-title-text">
+                            <span>Saluran 2</span>
+                        </div>
+                        <span class="status status-error">ERROR</span>
+                    </div>
+                    <div class="menu-desc">Saluran informasi alternatif sedang tidak tersedia (KENON).</div>
+                </div>
+            </div>
+
+            <!-- Saluran 3 -->
+            <a href="https://whatsapp.com/channel/0029Vb72gOz4dTnLFa0Gen0G" target="_blank" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <div class="menu-title-text">
+                            <span>Saluran 3</span>
+                        </div>
+                        <span class="status status-active">AKTIF</span>
+                    </div>
+                    <div class="menu-desc">Saluran WhatsApp informasi utama yang sedang beroperasi. Klik untuk bergabung.</div>
+                </div>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@kaizye_store" target="_blank" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fab fa-tiktok"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <div class="menu-title-text">
+                            <span>TikTok Official</span>
+                        </div>
+                        <span class="status status-active">@kaizye_store</span>
+                    </div>
+                    <div class="menu-desc">Kunjungi TikTok kami untuk konten menarik, update produk, dan promo eksklusif.</div>
+                </div>
+            </a>
+
+            <!-- Chet VIP FREE -->
+            <a href="https://whatsapp.com/channel/0029VbByCKpJf05eThBUNe2K" target="_blank" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <div class="menu-title-text">
+                            <span>Chet VIP FREE</span>
+                        </div>
+                        <span class="status status-vip">VIP ACCESS</span>
+                    </div>
+                    <div class="menu-desc">Saluran WhatsApp khusus untuk member VIP dengan benefit eksklusif. Gratis bergabung!</div>
+                </div>
+            </a>
+
+            <!-- GB CHIT VVIP -->
+            <a href="https://chat.whatsapp.com/ElUejklBNk34X2QaDoWLpG" target="_blank" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <div class="menu-title-text">
+                            <span>GB CHIT VVIP</span>
+                        </div>
+                        <span class="status status-vvip">VVIP EXCLUSIVE</span>
+                    </div>
+                    <div class="menu-desc">Grup WhatsApp eksklusif untuk member VVIP dengan akses ke layanan premium.</div>
+                </div>
+            </a>
+
+            <!-- WhatsApp Admin Utama -->
+            <a href="https://wa.me/6288220455270" target="_blank" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <div class="menu-title-text">
+                            <span>WhatsApp Admin (Utama)</span>
+                        </div>
+                        <span class="status status-admin">HUBUNGI</span>
+                    </div>
+                    <div class="menu-desc">Hubungi admin utama untuk informasi penting, bantuan teknis, dan pertanyaan umum.</div>
+                </div>
+            </a>
+
+            <!-- WhatsApp Admin 2 -->
+            <a href="https://wa.me/6285601615392" target="_blank" class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <div class="menu-title-text">
+                            <span>WhatsApp Admin²</span>
+                        </div>
+                        <span class="status status-admin">HUBUNGI</span>
+                    </div>
+                    <div class="menu-desc">Hubungi admin kedua untuk bantuan teknis, pemesanan, dan dukungan pelanggan.</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2026 ALL INFO. Semua hak dilindungi. | Tema <strong>Dark Mode Premium</strong></p>
+            <p>Website ini tidak menampilkan nomor WhatsApp secara langsung. Klik tombol untuk terhubung dengan admin.</p>
+        </div>
+    </div>
+
+    <script>
+        // Menambahkan efek klik pada menu item
+        document.querySelectorAll('.menu-item[href]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Animasi klik
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+                
+                // Notifikasi bahwa link akan dibuka
+                const title = this.querySelector('.menu-title-text span').textContent;
+                console.log(`Membuka: ${title}`);
+            });
+        });
+
+        // Menambahkan efek loading untuk gambar profil
+        const profilePic = document.querySelector('.profile-pic');
+        profilePic.addEventListener('load', function() {
+            this.style.opacity = '1';
+        });
+        
+        profilePic.style.opacity = '0';
+        profilePic.style.transition = 'opacity 0.5s ease';
+
+        // Efek paralaks saat scroll
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const profileSection = document.querySelector('.profile-section');
+            profileSection.style.transform = `translateY(${scrolled * 0.05}px)`;
+        });
+    </script>
+</body>
+</html>
